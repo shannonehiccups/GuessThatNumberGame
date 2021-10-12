@@ -1,74 +1,89 @@
 // GUESS THAT NUMBER GAME 
+// GUESS THAT NUMBER
+// Message to be used throughout the file/project
+const enterNumText = `Please enter a number greater than zero`;
 
-const enterNumText = `Please enter a number greater than zero`
-// message to be used throughout the project
+// For restarting the game
+let restartGame = true;
 
- let restartGame = true; 
-//  as long as this remains true, the game will restart
+// For storing the range of the number to be guessed
+let rangeNum;
 
- let rangeNum; 
-//  For storing the range of the number to be guessed
+// For storing the number to be guessed
+let randomNum;
 
-let randomNum; 
-// For storing the number to be guessed 
+// For storing the number of attempts that the user has left
+let attempts;
 
-let attempts 
-// For storing the number of attempts the user has left 
+// For storing the user's guess
+let guess;
 
-let guess; 
-// for storing the users guess 
+// For storing user's response to play again or not play again
+let playAgain;
 
-let playAgain; 
-// for storing the users response to play again or not 
+// Starting alert message
+alert(`Welcome to "GUESS THAT NUMBER!" Please click "OK" to start the game.`);
 
-alert (`Welcome to "GUESS THAT NUMBER!" Please click "OK" to start the game! :D`);
-
-// 
+// Game restarts as long as restartGame has value of true
 while (restartGame){
+  // Asks user to enter a number to set the upper bound for the random number that will be created (AKA Number to be guessed).
+  rangeNum = prompt(`Please enter a maximum number for the range:`);
 
-    rangeNum = prompt(`Please enter a maximum number for the range:`);
-// Asks the user to enter a number that will set the upper bound for the random number that will be created (AKA number to be guessed)
+  // Using parseInt to attempt to convert the user's response into a number value (NOTE: The value returned from a prompt is a string value. Also, if the value cannot be converted then the value returned will be NaN (Not A Number))
+  rangeNum = parseInt(rangeNum);
+  
+  // Verifies the user's entry for the range number is a number greater than zero (NOTE: NaN has a default boolean value of false. Also, all numbers, positive and negative, have a default boolean value of true, except for zero which has a default boolean value of false.)
+  while (!rangeNum || rangeNum < 1){
+    rangeNum = prompt(enterNumText);
+    rangeNum = parseInt(rangeNum);
+  }
+  
+  // Creates the random number (AKA Number to be guessed by the user) using the range number entered by the user
+  randomNum = Math.floor(Math.random() * rangeNum) + 1;
 
-rangeNum =parseInt(rangeNum); 
-// Using parseInt to attempt to convert the user's response into a number value (NOTE: the value returned from a prompt is a string value. If the value cannot be converted, the the value returned with be NaN (Not a Number))
+  // Prompts user to enter a number of attempts allowed (AKA Number of guesses). Also, attempting to convert their response into a number value.
+  attempts = parseInt(prompt(`Please enter a number of attempts allowed:`));
 
-while (!rangeNum || rangeNum <1) {
-    rangeNum=prompt(enterNumText); 
-    rangeNum=parseInt(rangeNum); 
-    // Verifies that the user's entry for the range is a number greater than zero (NOTE: NaN has a default boolean value of false. All numbers + and - have a default boolean value of true, with the exception of zero)
-}
+  // Verifies the user's entry for a number of attempts allowed is a number greater than zero
+  while (!attempts || attempts < 1){
+    attempts = parseInt(prompt(enterNumText));
+  }
 
-randomNum = Math.floor(Math.random()*rangeNum)+1;
-attempts=parseInt(prompt(`Please enter the number if attempts allowed:`))
+  // Asks user to enter a guess in the range that they set
+  guess = prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${attempts} attempt(s) left:`);
 
-while (!attempts || attempts <1) {
-    attempts=parseInt(prompt(enterNumText));
-}
+  // Continues looping until the user guesses the correct number or runs out of attempts (NOTE: Loops until a BREAK keyword is run)
+  while (true){
+    // Attempts to convert the user's guess into a number
+    guess = parseInt(guess);
 
-guess=prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${attempts} attempt(s) left:`);
-// continues looping until the user guesses the correct number or runs out of attempts (NOTE: loops until the BREAK keyword is run)
-while (true){
-    guess=parseInt(guess); 
-
-    while (!guess || guess <1 || guess> rangeNum) {
-        guess= parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`))
+    // Verifies the user's guess is a number greater than zero as well as a number within the range set by the user
+    while (!guess || guess < 1 || guess > rangeNum){
+      guess = parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`));
     }
 
-    break;
+    // Removes an attempt
+    attempts--;
+
+    // Checks if the user guessed correctly. If so, the game ends (NOTE: The BREAK ends the loop)
+    if (guess === randomNum){
+      alert(`CONGRATULATIONS YOU GUESSED THE CORRECT NUMBER: ${randomNum}`);
+      break;
+
+      // Checks if user has any attempts left. If not, then the game ends and the number is displayed to the user.
+    } else if (attempts === 0){
+      alert(`Sorry, but you have run out of attempts :(. The number was ${randomNum}`);
+      break;
+
+      // Checks if user's guess was too low and prompts user to guess again if that is the case
+    } else if (guess < randomNum){
+      guess = prompt(`Too low. You have ${attempts} attempt(s) left`);
+
+      // The only other possibility is that the user's guess was too high so the user is prompted to guess again
+    } else {
+      guess = prompt(`Too high. You have ${attempts} attempt(s) left`);
+    }
+  }
+
+  break;
 }
-    break;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
