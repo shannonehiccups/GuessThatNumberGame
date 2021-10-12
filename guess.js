@@ -39,9 +39,23 @@ while (!rangeNum || rangeNum <1) {
 }
 
 randomNum = Math.floor(Math.random()*rangeNum)+1;
+attempts=parseInt(prompt(`Please enter the number if attempts allowed:`))
 
+while (!attempts || attempts <1) {
+    attempts=parseInt(prompt(enterNumText));
+}
 
+guess=prompt(`Please enter a guess from 1 to ${rangeNum}. You have ${attempts} attempt(s) left:`);
+// continues looping until the user guesses the correct number or runs out of attempts (NOTE: loops until the BREAK keyword is run)
+while (true){
+    guess=parseInt(guess); 
 
+    while (!guess || guess <1 || guess> rangeNum) {
+        guess= parseInt(prompt(`Please enter a number from 1 to ${rangeNum}`))
+    }
+
+    break;
+}
     break;
 }
 
