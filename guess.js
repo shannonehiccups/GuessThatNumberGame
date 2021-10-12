@@ -84,6 +84,17 @@ while (restartGame){
       guess = prompt(`Too high. You have ${attempts} attempt(s) left`);
     }
   }
+playAgain=prompt (`Would you like to play again? Y for yes. N for no.`);
 
-  break;
+while(true){
+  if (playAgain.toUpperCase() === "N") {
+    alert("Thanks for playing");
+    restartGame=false; 
+    break; 
+  } else if (playAgain.toUpperCase() === "Y"){
+    break; 
+  } else {
+    playAgain = prompt(`Please enter Y or N`); 
+  }
+}
 }
