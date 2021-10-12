@@ -37,5 +37,24 @@ while (!rangeNum || rangeNum <1) {
     rangeNum=parseInt(rangeNum); 
     // Verifies that the user's entry for the range is a number greater than zero (NOTE: NaN has a default boolean value of false. All numbers + and - have a default boolean value of true, with the exception of zero)
 }
+
+randomNum = Math.floor(Math.random()*rangeNum)+1;
+
+
+
     break;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
